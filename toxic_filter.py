@@ -44,9 +44,14 @@ class BCNN(nn.Module):
         result =  self.fc(cat)
 
         return result
+parser = argparse.ArgumentParser(description='Example script with argument parser.')
+
+# Define expected arguments
+parser.add_argument('dataset', type=str, required=True, help='huggingface dataset path')
+args = parser.parse_args()
 # Replace 'your_api_token' with your actual Hugging Face API token
-login(token="...",add_to_git_credential=True)
-repo_id = '...'
+#login(token="...",add_to_git_credential=True)
+repo_id = args.dataset
 # 1. Load your dataset (replace 'your_dataset' and 'split' as appropriate)
 dataset = load_dataset(repo_id, split="train")  # assumes a column "text"
 
@@ -97,67 +102,8 @@ print("Filtered dataset length (only prediction==0):", len(filtered_dataset))
 # e.g., "your_username/your_dataset_name"
 # Push dataset to Hugging Face Hub
 filtered_dataset.push_to_hub(repo_id)
-toxic_dataset = dataset.filter(lambda x: x["predictions"] == 1)
-toxic_dataset.push_to_hub('...')
+#toxic_dataset = dataset.filter(lambda x: x["predictions"] == 1)
+#toxic_dataset.push_to_hub('...')
 
-'''import fasttext
-import pandas as pd
 
-def filter_quality_data(df, model_path, text_field="text",
-                        target_label="__label__high_quality", prob_threshold=0.5):
-    """
-    Filters a Pandas DataFrame using a FastText quality classifier.
-    
-    Args:
-        df (pd.DataFrame): The DataFrame containing the text data.
-        model_path (str): Path to the trained FastText model (e.g., 'quality_classifier.bin').
-        text_field (str): The column name in df that contains the text to classify.
-        target_label (str): The label that represents high-quality text.
-        prob_threshold (float): The minimum confidence required to accept the prediction.
-        
-    Returns:
-        pd.DataFrame: A DataFrame filtered to only include rows where the classifier 
-                      predicts the target label with a probability above the threshold.
-    """
-    # Load the FastText model
-    model = fasttext.load_model(model_path)
-    
-    # Get the texts from the DataFrame column
-    texts = df[text_field].tolist()
-    
-    # Get predictions for the list of texts (model.predict returns lists of labels and probabilities)
-    labels, probs = model.predict(texts)
-    
-    # Create a boolean mask based on predictions and confidence scores
-    mask = [
-        (label[0] == target_label) and (prob[0] >= prob_threshold)
-        for label, prob in zip(labels, probs)
-    ]
-    
-    # Filter the DataFrame based on the mask
-    filtered_df = df[mask].reset_index(drop=True)
-    return filtered_df
 
-# Example usage:
-if __name__ == "__main__":
-    # Create a sample DataFrame
-    sample_data = {
-        "text": [
-            "This dataset is very clean and useful.",
-            "There are many errors and noise in this dataset.",
-            "The text is well-structured and informative.",
-            "Garbage content with irrelevant words."
-        ]
-    }
-    df = pd.DataFrame(sample_data)
-    
-    # Path to your trained FastText model (adjust as needed)
-    model_path = "quality_classifier.bin"
-    
-    # Filter the DataFrame
-    filtered_df = filter_quality_data(df, model_path,
-                                      text_field="text",
-                                      target_label="__label__high_quality",
-                                      prob_threshold=0.5)
-    print(filtered_df)
-'''
