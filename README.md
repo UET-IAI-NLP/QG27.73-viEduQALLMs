@@ -6,7 +6,7 @@ Data sources come from the following categories:
 |--------------|----------------|----------------|---------------|
 | VNU web crawl     |          | 1,000,000      | Yes           |
 |  [CC100 vi](https://huggingface.co/datasets/statmt/cc100)   | 28GB(txt.gz)         | 50,000         | No            |
-| [C4_vi](https://huggingface.co/datasets/allenai/c4)    | 116GB(parquet)         |         |            |
+| [C4_vi](https://huggingface.co/datasets/allenai/c4)    | 116GB(parquet)         |  1732223389       |            |
 
 1. Web crawler dataset:  
 - Website UET (ĐH Công nghệ): tuyensinh.uet.vnu.edu.vn; new.uet.vnu.edu.vn
@@ -36,5 +36,8 @@ We apply continual pretraining to [meta-llama/Llama-3.1-8B](https://huggingface.
 - Model type: RoBERTa with classification layers
 - Params: 136 M
 - Size: 544 MB
+# Usage:  
+-Heuristic Filtering using Data-juicer:
+
 # Deduplication
 Locality Sensitive Hashing: Minhash
