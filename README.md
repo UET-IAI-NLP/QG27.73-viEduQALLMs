@@ -36,9 +36,13 @@ We apply continual pretraining to [meta-llama/Llama-3.1-8B](https://huggingface.
 - Model type: RoBERTa with classification layers
 - Params: 136 M
 - Size: 544 MB
+# Deduplication
+Locality Sensitive Hashing: Minhash  
 # Usage:  
 -Heuristic Filtering using Data-juicer: run processing_data.ipynb  
--Run Model-based filtering: python toxic_filter.py 
+-Run Model-based filtering: python toxic_filter.py dataset     
+# Result and Domain distribution:  
+![image](https://github.com/user-attachments/assets/59ccdc70-5f0d-473b-b070-72939a7b6251)
 
-# Deduplication
-Locality Sensitive Hashing: Minhash
+![domains (2)](https://github.com/user-attachments/assets/f9ea0ec0-8b25-4577-939c-6ad1e02b8108)
+
