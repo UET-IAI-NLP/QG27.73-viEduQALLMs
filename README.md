@@ -1,5 +1,13 @@
 # Pretraining dataset
-Data sources come from the following categories:  
+Data sources come from the following categories:
+## Dataset Summary
+
+| Dataset Name | Size (Storage) | Size (Samples) | Pre-Processed |
+|--------------|----------------|----------------|---------------|
+| VNU web crawl     |          | 1,000,000      | Yes           |
+|  [CC100 vi](https://huggingface.co/datasets/statmt/cc100)   | 28GB(txt.gz)         | 50,000         | No            |
+| [C4_vi](https://huggingface.co/datasets/allenai/c4)    | 116GB(parquet)         |         |            |
+
 1. Web crawler dataset:  
 - Website UET (ĐH Công nghệ): tuyensinh.uet.vnu.edu.vn; new.uet.vnu.edu.vn
 - Website HUS (ĐH KHTN): hus.vnu.edu.vn
