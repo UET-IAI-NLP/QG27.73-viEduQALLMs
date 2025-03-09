@@ -2,11 +2,11 @@
 Data sources come from the following categories:
 ## Dataset Summary
 
-| Dataset Name | Size (Storage) | Size (Samples) | Pre-Processed |
+| Dataset Name | Original Size (Storage) | Original Size (Samples) | Pre-Processed |
 |--------------|----------------|----------------|---------------|
-| VNU web crawl     |          | 1,000,000      | Yes           |
-|  [CC100 vi](https://huggingface.co/datasets/statmt/cc100)   | 28GB(txt.gz)         | 50,000         | No            |
-| [C4_vi](https://huggingface.co/datasets/allenai/c4)    | 116GB(parquet)         |  1732223389       |            |
+| [VNU web crawl](https://huggingface.co/datasets/group2sealion/vnu_crawl_clean)     |  113MB(json)        | 19653      | Yes           |
+|  [CC100 vi](https://huggingface.co/datasets/statmt/cc100)   | 28GB(txt.gz)         | 100M         | No            |
+| [C4_vi](https://huggingface.co/datasets/allenai/c4)    | 116GB(parquet)         |  78M       |      26%      |
 
 1. Web crawler dataset:  
 - Website UET (ĐH Công nghệ): tuyensinh.uet.vnu.edu.vn; new.uet.vnu.edu.vn
@@ -25,11 +25,11 @@ We use tokenizer from [meta-llama/Llama-3.1-8B](https://huggingface.co/meta-llam
 # Training models  
 We apply continual pretraining to [meta-llama/Llama-3.1-8B](https://huggingface.co/meta-llama/Llama-3.1-8B) on our processed dataset. The training process last 10 days on 2 Nvidia A100 GPUs and we achieve the average training loss of 1.9
 # Filtering models  
-1. [Quality classification model](https://huggingface.co/zerostratos/quality_classification):  
+1. [Domain classification model](https://huggingface.co/nvidia/multilingual-domain-classifier):  
 - Model type: deberta-v2
 - Params: 278 M
 - Size: 1.11 GB
-2. [Domain classification model](https://huggingface.co/nvidia/multilingual-domain-classifier) :
+2. [Quality classification model](https://huggingface.co/zerostratos/quality_classification) :
 - Model type: fasttext
 - Size: 2.02 GB
 3. [Toxic detection model](https://huggingface.co/zerostratos/lstm)
@@ -37,7 +37,8 @@ We apply continual pretraining to [meta-llama/Llama-3.1-8B](https://huggingface.
 - Params: 136 M
 - Size: 544 MB
 # Usage:  
--Heuristic Filtering using Data-juicer:
+-Heuristic Filtering using Data-juicer: run processing_data.ipynb  
+-Run Model-based filtering: python toxic_filter.py 
 
 # Deduplication
 Locality Sensitive Hashing: Minhash
