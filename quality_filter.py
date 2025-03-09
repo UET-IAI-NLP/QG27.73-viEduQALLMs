@@ -1,5 +1,5 @@
 import fasttext
-from datasets import Dataset
+from datasets import Dataset, load_dataset
 import re
 def filter_quality_data_hf(dataset, model_path, text_field="text",
                            target_label="__label__high_quality", prob_threshold=0.5,
@@ -20,6 +20,7 @@ def filter_quality_data_hf(dataset, model_path, text_field="text",
     """
     # Load the FastText model
     model = fasttext.load_model(model_path)
+    dataset = load_dataset(dataset)
     def replace_newlines(text: str) -> str:
         return re.sub("\n+", " ", text)
     # Define a mapping function that computes the "pass_filter" column.
@@ -46,3 +47,22 @@ def filter_quality_data_hf(dataset, model_path, text_field="text",
     # Filter the dataset based on the "pass_filter" flag.
     filtered_dataset = dataset_with_filter.filter(lambda ex: ex["pass_filter"])
     return filtered_dataset
+
+def main():
+    # Create the argument parser
+    parser = argparse.ArgumentParser(description='Example script with argument parser.')
+
+    # Define expected arguments
+    parser.add_argument('dataset', type=str, required=True, help='huggingface dataset path')
+    parser.add_argument('model_path', type=str, required=True, help='path to the trained FastText model')
+    parser.add_argument('--text_field', type=str, default='text', help='field in the dataset containing the text')
+    parser.add_argument('--target_label', type=str, default='__label__high_quality', help='label representing high-quality text')
+
+    # Parse the command-line arguments
+    args = parser.parse_args()
+
+    # Call the function with parsed arguments
+    result = filter_quality_data_hf(args.dataset, args.model_path, text_field=args.text_field, target_label=args.target_label)
+    result.push_to_hub(args.dataset)
+if __name__ == '__main__':
+    main()
