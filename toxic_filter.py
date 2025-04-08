@@ -7,7 +7,7 @@ from datasets import Dataset, DatasetDict
 from tqdm import tqdm
 import torch.nn as nn
 import torch.nn.functional as F
-
+import argparse
 class BCNN(nn.Module):
     def __init__(self, embedding_dim, output_dim,
                  dropout,bidirectional_units,conv_filters):

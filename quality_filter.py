@@ -1,6 +1,7 @@
 import fasttext
 from datasets import Dataset, load_dataset
 import re
+import argparse
 def filter_quality_data_hf(dataset, model_path, text_field="text",
                            target_label="__label__high_quality", prob_threshold=0.5,
                            batch_size=64):
@@ -53,10 +54,10 @@ def main():
     parser = argparse.ArgumentParser(description='Example script with argument parser.')
 
     # Define expected arguments
-    parser.add_argument('dataset', type=str, required=True, help='huggingface dataset path')
-    parser.add_argument('model_path', type=str, required=True, help='path to the trained FastText model')
-    parser.add_argument('--text_field', type=str, default='text', help='field in the dataset containing the text')
-    parser.add_argument('--target_label', type=str, default='__label__high_quality', help='label representing high-quality text')
+    parser.add_argument('dataset', type=str, help='huggingface dataset path')
+    parser.add_argument('model_path', type=str, help='path to the trained FastText model')
+    parser.add_argument('text_field', type=str, default='text', help='field in the dataset containing the text')
+    parser.add_argument('target_label', type=str, default='__label__high_quality', help='label representing high-quality text')
 
     # Parse the command-line arguments
     args = parser.parse_args()
