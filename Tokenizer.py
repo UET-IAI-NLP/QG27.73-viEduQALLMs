@@ -3,9 +3,11 @@ from datasets import load_dataset
 from transformers import AutoTokenizer
 import tiktoken
 import numpy as np
+from huggingface_hub import login
+login(token ="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")
 from tqdm.auto import tqdm
 
-def fast_batch_count(dataset, text_column="text", tokenizer_name="meta-llama/Llama-3-8B-Instruct", batch_size=1000):
+def fast_batch_count(dataset, text_column="text", tokenizer_name="meta-llama/Llama-3.2-1B-Instruct", batch_size=1000):
     """Count tokens efficiently with support for both HF and OpenAI tokenizers"""
     # Initialize tokenizer
     if tokenizer_name in ["gpt-4", "gpt-3.5-turbo"]:
@@ -29,7 +31,7 @@ def main():
     parser = argparse.ArgumentParser(description='Count tokens in a Hugging Face dataset.')
     parser.add_argument('dataset', type=str, help='Hugging Face dataset path (e.g. "imdb")')
     parser.add_argument('--split', type=str, default='train', help='Dataset split (default: train)')
-    parser.add_argument('--tokenizer', type=str, default='meta-llama/Llama-3-8B-Instruct', 
+    parser.add_argument('--tokenizer', type=str, default='meta-llama/Llama-3.2-1B-Instruct', 
                        help='Tokenizer name (HF model or "gpt-4"/"gpt-3.5-turbo")')
     parser.add_argument('--text-field', type=str, default='text', 
                        help='Field containing text (default: text)')
@@ -52,5 +54,5 @@ def main():
     print(f"Maximum length: {token_counts.max():,} tokens")
     print(f"95th percentile: {np.percentile(token_counts, 95):.1f} tokens")
 
-if __name__ == "__main__":  # Fixed this line
+if __name__ == "__main__":
     main()

@@ -47,10 +47,10 @@ class BCNN(nn.Module):
 parser = argparse.ArgumentParser(description='Example script with argument parser.')
 
 # Define expected arguments
-parser.add_argument('dataset', type=str, required=True, help='huggingface dataset path')
+parser.add_argument('dataset', type=str, help='huggingface dataset path')
 args = parser.parse_args()
 # Replace 'your_api_token' with your actual Hugging Face API token
-#login(token="...",add_to_git_credential=True)
+login(token="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",add_to_git_credential=True)
 repo_id = args.dataset
 # 1. Load your dataset (replace 'your_dataset' and 'split' as appropriate)
 dataset = load_dataset(repo_id, split="train")  # assumes a column "text"
@@ -89,7 +89,6 @@ with torch.no_grad():
         outputs = model(input_ids, attention_mask)
         preds = torch.argmax(outputs, dim=1)
         all_predictions.extend(preds.cpu().numpy())
-
 # 6. Add the predictions as a new column to the tokenized dataset.
 #    (Ensure the order is preserved between your DataLoader and dataset.)
 dataset = dataset.add_column("predictions", all_predictions)
@@ -101,6 +100,8 @@ print("Original dataset length:", len(tokenized_dataset))
 print("Filtered dataset length (only prediction==0):", len(filtered_dataset))
 # e.g., "your_username/your_dataset_name"
 # Push dataset to Hugging Face Hub
+new_repo_id = repo_id + '_clean'
+print(new_repo_id)
 filtered_dataset.push_to_hub(repo_id)
 #toxic_dataset = dataset.filter(lambda x: x["predictions"] == 1)
 #toxic_dataset.push_to_hub('...')

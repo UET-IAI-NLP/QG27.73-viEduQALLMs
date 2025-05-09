@@ -3,7 +3,7 @@ from datasets import Dataset, load_dataset
 import re
 import argparse
 def filter_quality_data_hf(dataset, model_path, text_field="text",
-                           target_label="__label__high_quality", prob_threshold=0.5,
+                           target_label="__label__hq", prob_threshold=0.5,
                            batch_size=64):
     """
     Filters a Hugging Face Dataset using a FastText quality classifier.
@@ -21,7 +21,7 @@ def filter_quality_data_hf(dataset, model_path, text_field="text",
     """
     # Load the FastText model
     model = fasttext.load_model(model_path)
-    dataset = load_dataset(dataset)
+    dataset = load_dataset(dataset, split='train')
     def replace_newlines(text: str) -> str:
         return re.sub("\n+", " ", text)
     # Define a mapping function that computes the "pass_filter" column.
@@ -55,9 +55,9 @@ def main():
 
     # Define expected arguments
     parser.add_argument('dataset', type=str, help='huggingface dataset path')
-    parser.add_argument('model_path', type=str, help='path to the trained FastText model')
-    parser.add_argument('text_field', type=str, default='text', help='field in the dataset containing the text')
-    parser.add_argument('target_label', type=str, default='__label__high_quality', help='label representing high-quality text')
+    parser.add_argument('--model_path', type=str, help='path to the trained FastText model')
+    parser.add_argument('--text_field', type=str, default='text', help='field in the dataset containing the text')
+    parser.add_argument('--target_label', type=str, default='__label__hq', help='label representing high-quality text')
 
     # Parse the command-line arguments
     args = parser.parse_args()
