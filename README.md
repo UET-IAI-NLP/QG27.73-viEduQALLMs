@@ -82,12 +82,23 @@ optional arguments:
 Data sources come from the following categories:
 ## Dataset Summary
 
-| Dataset Name | Original Size (Storage) | Original Size (Samples) | Pre-Processed |
-|--------------|----------------|----------------|---------------|
-| [VNU web crawl](https://huggingface.co/datasets/group2sealion/vnu_crawl_clean)     |  113MB(json)        | 19653      | Yes           |
-|  [CC100 vi](https://huggingface.co/datasets/statmt/cc100)   | 28GB(txt.gz)         | 100M         | No            |
-| [C4_vi](https://huggingface.co/datasets/allenai/c4)    | 116GB(parquet)         |  78M       |      26%      |
+## Data Sources Summary
 
+| Data Source                      | Sample Types | Storage          | Number of Samples | Tokens        |
+| :------------------------------- | :----------- | :--------------- | :---------------- | :------------ |
+| CommonCrawl(2024)                | document     | 8.69GB (parquet) | 2.9M              | 3.5 billion   |
+| C4                               | document     | 116GB (parquet)  | 10M               | 11 billion    |
+| CC100                            | sentence     | 28GB (txt.gz)    | 100M              | not yet       |
+| Books (https://nhasachmienphi.com/) | document     | 857MB            | 260K              | 380 million   |
+| vnu pages                        | document     | UET 46.1 MB      | 12264             | 10 million    |
+|                                  |              | HUS 36.8 MB      | 8131              |               |
+|                                  |              | UEB 109 MB       | 11821             |               |
+|                                  |              | IS 11.5 MB       | 1781              |               |
+|                                  |              | UEd 22.7 MB      | 5274              |               |
+|                                  |              | NXB ĐHQGHN 1.82 MB | 975             |               |
+|                                  |              | VNU 40 MB        | 5000              |               |
+|                                  |              | ITI 7.5 MB       | 1700              |               |
+| **Total** |              | **153.7 GB** |                   | **14.8 billion** |
 1. Web crawler dataset:  
 - Website UET (ĐH Công nghệ): tuyensinh.uet.vnu.edu.vn; new.uet.vnu.edu.vn
 - Website HUS (ĐH KHTN): hus.vnu.edu.vn
