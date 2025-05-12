@@ -1,3 +1,83 @@
+# Usage
+Tokenizer
+```shell
+python Tokenizer.py  --h
+usage: Tokenizer.py [-h] [--split SPLIT] [--tokenizer TOKENIZER] [--text-field TEXT_FIELD] dataset
+
+Count tokens in a Hugging Face dataset.
+
+positional arguments:
+  dataset               Hugging Face dataset path (e.g. "imdb")
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --split SPLIT         Dataset split (default: train)
+  --tokenizer TOKENIZER
+                        Tokenizer name (HF model or "gpt-4"/"gpt-3.5-turbo")
+  --text-field TEXT_FIELD
+                        Field containing text (default: text)
+```
+Toxic filter
+```shell
+python toxic_filter.py --h
+usage: toxic_filter.py [-h] dataset
+
+Example script with argument parser.
+
+positional arguments:
+  dataset     huggingface dataset path
+
+optional arguments:
+  -h, --help  show this help message and exit
+```
+Quality filter
+```shell
+python quality_filter.py --h
+usage: quality_filter.py [-h] [--model_path MODEL_PATH] [--text_field TEXT_FIELD] [--target_label TARGET_LABEL] dataset
+
+Example script with argument parser.
+
+positional arguments:
+  dataset               huggingface dataset path
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --model_path MODEL_PATH
+                        path to the trained FastText model
+  --text_field TEXT_FIELD
+                        field in the dataset containing the text
+  --target_label TARGET_LABEL
+                        label representing high-quality text
+```
+Deduplication
+```shell
+python dedup.py --h
+usage: dedup.py [-h] --base-path BASE_PATH --data-file DATA_FILE --output-path OUTPUT_PATH [--split SPLIT]
+                [--cache-dir CACHE_DIR] [--column COLUMN] [--num-perm NUM_PERM] [--threshold THRESHOLD] [--b B] [--r R]
+                [--batch-size BATCH_SIZE]
+
+Run text_dedup.minhash for a single file.
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --base-path BASE_PATH
+                        Base directory containing the data file (passed to text_dedup --path).
+  --data-file DATA_FILE
+                        The specific input data file name (relative to base-path, e.g., "train-00001-of-00016.parquet").
+  --output-path OUTPUT_PATH
+                        The full path for the output results (e.g., "/content/drive/MyDrive/dedup/output_file_1.jsonl").
+  --split SPLIT         Dataset split to process.
+  --cache-dir CACHE_DIR
+                        Directory for caching intermediate results.
+  --column COLUMN       Column containing text data in the Parquet file.
+  --num-perm NUM_PERM   Number of permutations for MinHash.
+  --threshold THRESHOLD
+                        Jaccard similarity threshold for deduplication.
+  --b B                 Number of bands for LSH.
+  --r R                 Number of rows per band for LSH.
+  --batch-size BATCH_SIZE
+                        Processing batch size for text_dedup.
+```
 # Pretraining dataset
 Data sources come from the following categories:
 ## Dataset Summary
