@@ -129,6 +129,10 @@ We apply continual pretraining to [meta-llama/Llama-3.1-8B](https://huggingface.
 - Size: 544 MB
 # Deduplication
 Locality Sensitive Hashing: Minhash  
+Default parameter: ```num_perm: 112```,
+    ```threshold: = 0.75```,
+    ```b: = 14```,
+    ```r: = 8```. Change parameters to adapt data and computer configuration.
 # Usage:  
 -Heuristic Filtering using Data-juicer: run processing_data.ipynb  
 -Run Model-based filtering: python toxic_filter.py dataset     
