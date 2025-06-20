@@ -52,7 +52,10 @@ def main():
     model.to(args.device)
     model.eval()
     ds = load_dataset(args.dataset, split = args.split)
-    tokenized_dataset = ds.map(tokenize_function, args.num_proc, batched=True, remove_columns=ds.column_names)
+    tokenized_dataset = ds.map(lambda x: tokenize_function(x, tokenizer),
+                           num_proc=args.num_proc,
+                           batched=True,
+                           remove_columns=ds.column_names)
     tokenized_dataset.set_format(type="torch", columns=["input_ids", "attention_mask"])
     # 4. Create a DataLoader for batch inference
     batch_size = args.batch_size
